@@ -6,6 +6,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-axum = "0.6.20"
-sqlx = "0.7.1"
 tokio = { version = "1.31.0", features = ["macros", "rt-multi-thread"] }
+axum = "0.6.20"
+handlebars = "4.3.7"
+serde = "1.0.183"
+sqlx = "0.7.1"
+uuid = { version = "1.4.1", features = ["v4", "serde"] }

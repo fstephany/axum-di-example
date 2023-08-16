@@ -10,7 +10,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let socket_9092 = "127.0.0.1:9092".parse()?;
 
     let _ = tokio::join!(
-        Server::bind(&socket_9090).serve(struct_static::app().into_make_service()),
+        Server::bind(&socket_9090).serve(struct_static::build_router().into_make_service()),
         Server::bind(&socket_9091).serve(trait_static::app().into_make_service()),
         Server::bind(&socket_9092).serve(dynamic::app().into_make_service())
     );
