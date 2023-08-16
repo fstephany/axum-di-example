@@ -1,5 +1,5 @@
 use axum::Server;
-use di_examples::{dynamic, struct_static, trait_static};
+use di_examples::{struct_static, trait_static, trait_static};
 use std::error::Error;
 
 #[tokio::main]
@@ -11,8 +11,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     let _ = tokio::join!(
         Server::bind(&socket_9090).serve(struct_static::build_router().into_make_service()),
-        Server::bind(&socket_9091).serve(trait_static::app().into_make_service()),
-        Server::bind(&socket_9092).serve(dynamic::app().into_make_service())
+        Server::bind(&socket_9091).serve(trait_static::build_router().into_make_service()),
+        Server::bind(&socket_9092).serve(dynamic::build_router().into_make_service())
     );
 
     Ok(())
