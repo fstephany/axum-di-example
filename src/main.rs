@@ -1,5 +1,5 @@
 use axum::Server;
-use di_examples::{struct_static, trait_static, trait_static};
+use di_examples::{dynamic, struct_static, trait_static};
 use std::error::Error;
 
 #[tokio::main]

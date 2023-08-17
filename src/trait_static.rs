@@ -36,21 +36,9 @@ pub fn build_router() -> Router {
         db: MemoryDB::new(),
     };
     build(state)
-
-    // Being Explicit works but we lose the flexibility
-    // Router::new()
-    //     .route("/", get(handlers::index::<RegularAppState>))
-    //     .route("/item/:id", get(handlers::show::<RegularAppState>))
-    //     .with_state(state)
 }
 
 fn build<A: AppState>(state: A) -> Router {
-    // Router::new()
-    //     .route("/", get(handlers::index))
-    //     .route("/item/:id", get(handlers::show))
-    //     .with_state(state)
-
-    // Doesnt work neither
     Router::new()
         .route("/", get(handlers::index::<A>))
         .route("/item/:id", get(handlers::show::<A>))
@@ -114,7 +102,7 @@ mod database {
     use uuid::{uuid, Uuid};
 
     #[async_trait]
-    pub trait DB {
+    pub trait DB: Send + Sync {
         async fn all_items(&self) -> Vec<(&Uuid, &String)>;
         async fn get_item(&self, item_id: &Uuid) -> Option<&String>;
     }
