@@ -25,7 +25,7 @@ mod handlers {
     use super::AppState;
     use axum::{
         extract::{Path, State},
-        response::{Html, IntoResponse},
+        response::Html,
     };
     use serde::Serialize;
     use uuid::Uuid;
@@ -36,7 +36,7 @@ mod handlers {
         pub uuid: &'a Uuid,
     }
 
-    pub async fn index(State(AppState { db, templates }): State<AppState>) -> impl IntoResponse {
+    pub async fn index(State(AppState { db, templates }): State<AppState>) -> Html<String> {
         #[derive(Serialize)]
         struct ViewModel<'a> {
             pub title: &'a str,
