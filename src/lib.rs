@@ -1,6 +1,7 @@
 use handlebars::Handlebars;
 
 pub mod dynamic;
+pub mod generic_static;
 pub mod struct_static;
 pub mod trait_static;
 
