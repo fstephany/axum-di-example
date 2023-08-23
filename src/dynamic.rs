@@ -46,9 +46,8 @@ mod handlers {
         pub items: Vec<ItemViewModel<'a>>,
     }
 
-    pub async fn index(State(state): State<AppState>) -> Html<String> {
-        let items = state
-            .db
+    pub async fn index(State(AppState { db, templates }): State<AppState>) -> Html<String> {
+        let items = db
             .all_items()
             .await
             .into_iter()
@@ -60,18 +59,20 @@ mod handlers {
             items,
         };
 
-        Html(state.templates.render("index", &view).unwrap())
+        Html(templates.render("index", &view).unwrap())
     }
 
-    pub async fn show(Path(id): Path<Uuid>, State(state): State<AppState>) -> Html<String> {
-        let item = state
-            .db
+    pub async fn show(
+        Path(id): Path<Uuid>,
+        State(AppState { db, templates }): State<AppState>,
+    ) -> Html<String> {
+        let item = db
             .get_item(&id)
             .await
             .map(|name| ItemViewModel { name, uuid: &id })
             .unwrap();
 
-        Html(state.templates.render("show", &item).unwrap())
+        Html(templates.render("show", &item).unwrap())
     }
 }
 
