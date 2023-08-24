@@ -1,11 +1,12 @@
 //! Use traits but still use a static dispatch.
 
+use std::sync::Arc;
+
 use self::database::DB;
 use crate::build_templates;
 use axum::{routing::get, Router};
 use database::MemoryDB;
 use handlebars::Handlebars;
-use std::sync::Arc;
 
 #[derive(Clone)]
 pub struct AppState {
@@ -78,7 +79,7 @@ mod handlers {
 
 mod database {
     use axum::async_trait;
-    use std::{collections::HashMap, sync::Arc};
+    use std::collections::HashMap;
     use uuid::{uuid, Uuid};
 
     #[async_trait]
@@ -87,9 +88,8 @@ mod database {
         async fn get_item(&self, item_id: &Uuid) -> Option<&String>;
     }
 
-    #[derive(Clone)]
     pub struct MemoryDB {
-        items: Arc<HashMap<Uuid, String>>,
+        items: HashMap<Uuid, String>,
     }
 
     impl MemoryDB {
@@ -114,7 +114,7 @@ mod database {
             ];
 
             Self {
-                items: Arc::new(items.into_iter().collect()),
+                items: items.into_iter().collect(),
             }
         }
     }
