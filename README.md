@@ -1,7 +1,7 @@
 # Axum Handler dependency injection example
 
 This repo is the companion code of 
-https://tulipemoutarde.be/posts/2023-08-23-depencency-injection-rust-axum/ 
+https://tulipemoutarde.be/posts/2023-08-20-depencency-injection-rust-axum/
 
 # Usage
 
